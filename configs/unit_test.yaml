@@ -1,0 +1,14 @@
+# ** do not modify **
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .
+
+# ** can modify **
+
+network_size: [0, 0, 0]
+
+epochs: 0
+lr: 0
+decay: 0
+batch_size: 0
