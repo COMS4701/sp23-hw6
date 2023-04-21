@@ -107,11 +107,4 @@ def sigmoid(z):
 
 def sigmoid_prime(z):
     return sigmoid(z) * (1 - sigmoid(z))
-
-
-def relu(x):
-    return np.maximum(np.zeros_like(x), x)
-
-
-def relu_prime(x):
-    return np.where(x > 0, 1.0, 0.0)
+    
