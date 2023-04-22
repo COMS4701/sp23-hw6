@@ -31,33 +31,30 @@ def visualize_training_data(xs, ys, output):
     plt.scatter(red_x, red_y, s=0.25)
     plt.xlabel("x_0")
     plt.ylabel("x_1")
-    plt.axis('equal')
+    plt.axis("equal")
     plt.show()
 
 
-def test_function_1(x, y):    
+def test_function_1(x, y):
     return x**2 + y > 0.4
 
 
-def generate_test_train_val_data():
-    (X, Y) = np.meshgrid(np.random.uniform(-1, 1, 200), np.random.uniform(-1, 1, 200))
+def generate_test_train_val_data(split=0.70, visualize=True):
+    (X, Y) = np.meshgrid(np.random.uniform(-1, 1, 300), np.random.uniform(-1, 1, 300))
     xs, ys = X.flatten(), Y.flatten()
+    np.random.shuffle(xs)
+    np.random.shuffle(ys)
     length = len(xs)
-    train = [(np.array([[x, y]]).T,
-               one_hot_encoding(test_function_1(x, y), max=2)) for x, y in zip(xs[:int(length*0.8)], 
-                                                                               ys[:int(length*0.8)])]
-    test = [(np.array([[x, y]]).T, test_function_1(x, y)) for x, y in zip(xs[int(length*0.8):], 
-                                                                          ys[int(length*0.8):])]
 
-    visualize_training_data(xs, ys, [test_function_1(x, y) for x, y in zip(xs, ys)])
+    train = [
+        (np.array([[x, y]]).T, one_hot_encoding(test_function_1(x, y), max=2))
+        for x, y in zip(xs[: int(length * split)], ys[: int(length * split)])
+    ]
+    test = [
+        (np.array([[x, y]]).T, test_function_1(x, y))
+        for x, y in zip(xs[int(length * split) :], ys[int(length * split) :])
+    ]
+
+    if visualize:
+        visualize_training_data(xs, ys, [test_function_1(x, y) for x, y in zip(xs, ys)])
     return train, test
-
-def generate_test_data():
-    X, Y = np.meshgrid(np.linspace(-1, 1, 100), 
-                       np.linspace(-1, 1, 100))
-    xs, ys = X.flatten(), Y.flatten()
-    return [
-        (np.array([[x, y]]).T, 
-         test_function_1(x, y)) for x, y in zip(xs, ys)]
-
-    

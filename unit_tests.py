@@ -5,7 +5,7 @@ import numpy as np
 
 np.random.seed(0)
 import matplotlib.pyplot as plt
-from utils import generate_test_train_val_data, generate_test_data
+from utils import generate_test_train_val_data
 
 
 def create_simple_net_fixed():
@@ -72,13 +72,12 @@ def test_training(configs):
     )
 
     # testing
-    test_data = generate_test_data()
-    print(f"final test accuracy: {net.evaluate(test_data)}")
-    test_x, test_y = np.array([d[0][0] for d in test_data]), np.array(
-        [d[0][1] for d in test_data]
+    print(f"final test accuracy: {net.evaluate(val_data)}")
+    test_x, test_y = np.array([d[0][0] for d in val_data]), np.array(
+        [d[0][1] for d in val_data]
     )
     output = np.array(
-        [np.argmax(net.feedforward(data[0])[1][-1]) for data in test_data],
+        [np.argmax(net.feedforward(data[0])[1][-1]) for data in val_data],
         dtype=np.bool8,
     )
 
@@ -92,8 +91,8 @@ def test_training(configs):
     axes.plot(losses)
 
     axes = fig.add_subplot(1, 2, 2)
-    plt.scatter(part1_x, part1_y)
-    plt.scatter(part2_x, part2_y)
+    plt.scatter(part1_x, part1_y, s=0.75)
+    plt.scatter(part2_x, part2_y, s=0.75)
 
     plt.show()
 
