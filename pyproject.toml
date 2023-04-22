@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hw6"
 version = "1.0.0"
-description = "comsw4711 hw6"
+description = "comsw4701 hw6"
 authors = ["Neil Nie <yongyang.nie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
