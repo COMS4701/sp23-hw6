@@ -93,7 +93,7 @@ def test_training(configs):
 def main(configs: DictConfig):
     test_feedforward()
     test_backprop()
-    # test_training(configs)
+    test_training(configs)
 
 
 if __name__ == "__main__":
